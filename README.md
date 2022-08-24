@@ -5,3 +5,4 @@ More than Certified in Terraform
 
 Command: console
 The terraform console command provides an interactive console for evaluating expressions.
+https://www.terraform.io/cli/commands/console
