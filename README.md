@@ -16,3 +16,5 @@ random_string (Resource)
 The resource random_string generates a random permutation of alphanumeric characters and optionally special characters.
 This resource does use a cryptographic random number generator.
 https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string
+The count Meta-Argument
+A given resource or module block cannot use both count and for_each.
