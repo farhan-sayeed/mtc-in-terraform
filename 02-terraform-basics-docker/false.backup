@@ -1,9 +1,32 @@
 {
   "version": 4,
   "terraform_version": "1.2.7",
-  "serial": 102,
-  "lineage": "d1f48711-dd3d-6dbd-63f5-690066acfccb",
-  "outputs": {},
+  "serial": 4,
+  "lineage": "205d7e19-1d8e-d02a-0360-572a451bd3d8",
+  "outputs": {
+    "container-ip-address": {
+      "value": [
+        "172.17.0.3:49159"
+      ],
+      "type": [
+        "tuple",
+        [
+          "string"
+        ]
+      ]
+    },
+    "container-name": {
+      "value": [
+        "nodered-3kki"
+      ],
+      "type": [
+        "tuple",
+        [
+          "string"
+        ]
+      ]
+    }
+  },
   "resources": [
     {
       "mode": "managed",
@@ -12,9 +35,10 @@
       "provider": "provider[\"registry.terraform.io/terraform-providers/docker\"]",
       "instances": [
         {
+          "index_key": 0,
           "schema_version": 2,
           "attributes": {
-            "attach": null,
+            "attach": false,
             "bridge": "",
             "capabilities": [],
             "command": [],
@@ -25,15 +49,15 @@
             "devices": [],
             "dns": [],
             "dns_opts": [],
-            "dns_search": [],
+            "dns_search": null,
             "domainname": "",
             "entrypoint": [
               "./entrypoint.sh"
             ],
             "env": null,
-            "exit_code": 143,
-            "gateway": "",
-            "group_add": [],
+            "exit_code": null,
+            "gateway": "172.17.0.1",
+            "group_add": null,
             "healthcheck": [
               {
                 "interval": "0s",
@@ -50,26 +74,26 @@
             "hostname": "363a2664dbeb",
             "id": "363a2664dbeb05de4aaa30e632bb955c15f18578fa35cabfa12074553b642685",
             "image": "sha256:a15fc0f4e93018b7b6633639139a6fc1c6e13ca9275a6825cbecb6a4d2a85c57",
-            "ip_address": "",
-            "ip_prefix_length": 0,
+            "ip_address": "172.17.0.3",
+            "ip_prefix_length": 16,
             "ipc_mode": "private",
             "labels": [],
-            "links": [],
+            "links": null,
             "log_driver": "json-file",
             "log_opts": {},
-            "logs": null,
+            "logs": false,
             "max_retry_count": 0,
             "memory": 0,
             "memory_swap": 0,
             "mounts": [],
-            "must_run": null,
+            "must_run": true,
             "name": "nodered-3kki",
             "network_alias": null,
             "network_data": [
               {
-                "gateway": "",
-                "ip_address": "",
-                "ip_prefix_length": 0,
+                "gateway": "172.17.0.1",
+                "ip_address": "172.17.0.3",
+                "ip_prefix_length": 16,
                 "network_name": "bridge"
               }
             ],
@@ -77,16 +101,23 @@
             "networks": null,
             "networks_advanced": [],
             "pid_mode": "",
-            "ports": [],
+            "ports": [
+              {
+                "external": 49159,
+                "internal": 1880,
+                "ip": "0.0.0.0",
+                "protocol": "tcp"
+              }
+            ],
             "privileged": false,
             "publish_all_ports": false,
             "read_only": false,
             "restart": "no",
             "rm": false,
             "shm_size": 64,
-            "start": null,
-            "sysctls": {},
-            "tmpfs": {},
+            "start": true,
+            "sysctls": null,
+            "tmpfs": null,
             "ulimit": [],
             "upload": [],
             "user": "node-red",
@@ -95,7 +126,11 @@
             "working_dir": "/usr/src/node-red"
           },
           "sensitive_attributes": [],
-          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjIifQ=="
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjIifQ==",
+          "dependencies": [
+            "docker_image.nodered_image",
+            "random_string.random"
+          ]
         }
       ]
     },
@@ -117,6 +152,36 @@
           },
           "sensitive_attributes": [],
           "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "random_string",
+      "name": "random",
+      "provider": "provider[\"registry.terraform.io/hashicorp/random\"]",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 2,
+          "attributes": {
+            "id": "3kki",
+            "keepers": null,
+            "length": 4,
+            "lower": true,
+            "min_lower": 0,
+            "min_numeric": 0,
+            "min_special": 0,
+            "min_upper": 0,
+            "number": true,
+            "numeric": true,
+            "override_special": null,
+            "result": "3kki",
+            "special": false,
+            "upper": false
+          },
+          "sensitive_attributes": [],
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjIifQ=="
         }
       ]
     }
