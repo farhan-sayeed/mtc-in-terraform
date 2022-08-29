@@ -31,4 +31,5 @@ output "container-name" {
 output "container-ip-address" {
     value = [for i in docker_container.nodered_container[*]:join(":",[i.ip_address],i.ports[*]["external"])]
     description = "IP address & external port of the container"
+    # sensitive = true
 }
