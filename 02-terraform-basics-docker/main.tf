@@ -1,7 +1,7 @@
 
 resource "null_resource" "dockervol" {
 	provisioner "local-exec" {
-		command = "sleep 60 && mkdir noderedvol/ || true && sudo chown -R 1000:1000 noderedvol/"
+		command = "mkdir noderedvol/ || true && sudo chown -R 1000:1000 noderedvol/"
 	}
 }
 
@@ -23,25 +23,31 @@ resource "random_string" "random" {
 #     upper = false
 # }
 
-resource "docker_container" "nodered_container" {
+module "container" {
+		source = "./container"
 		depends_on = [null_resource.dockervol]
 		count = local.c_count
 		# Implicit dependency
 		# name = join("-",["nodered", terraform.workspace, null_resource.dockervol.id, random_string.random[count.index].result])
-		name = join("-",["nodered", terraform.workspace, random_string.random[count.index].result])
+		 name_in = join("-",["nodered", terraform.workspace, random_string.random[count.index].result])
 		# image = docker_image.nodered_image.latest
-		image = module.image.image_out
-		ports {
-				internal = var.int_port
-				# external = lookup(var.ext_port, var.env)[count.index]
-				# external = lookup(var.ext_port, terraform.workspace)[count.index]
-				external = var.ext_port[terraform.workspace][count.index]
-		}
-		volumes {
-			container_path = "/data"
-			host_path = "${path.cwd}/noderedvol"
-		}
+		image_in = module.image.image_out
+		# ports {
+		# 		internal = var.int_port
+		# 		# external = lookup(var.ext_port, var.env)[count.index]
+		# 		# external = lookup(var.ext_port, terraform.workspace)[count.index]
+		# 		external = var.ext_port[terraform.workspace][count.index]
+		# }
+		int_port_in = var.int_port
+		ext_port_in = var.ext_port[terraform.workspace][count.index]
+		# volumes {
+		# 	container_path = "/data"
+		# 	host_path = "${path.cwd}/noderedvol"
+		# }
+		container_path_in = "/data"
+		host_path_in = "${path.cwd}/noderedvol"
 }
+
 
 # resource "docker_container" "nodered_container2" {
 #     name = "nodered-tgsl"
